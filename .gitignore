@@ -1,0 +1,40 @@
+# Ambiente virtual
+venv/
+env/
+
+# Cache do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyd
+*.pdb
+*.pdb
+*.pkl
+
+# Build / distribuição
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Configurações do editor
+.vscode/
+.idea/
+
+# Arquivos temporários
+*.log
+*.tmp
+*.bak
+
+# Banco de dados SQLite local
+*.sqlite3
+*.db
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Configurações privadas
+.env
+.env.local
