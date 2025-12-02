@@ -5,6 +5,8 @@ from app.core.database import get_db
 from app.schemas.user_schema import UserCreate, UserResponse, UserUpdate
 from app.services.user_service import UserService
 
+from app.utils.jwt_utils import get_current_user
+
 # definindo o roteador para as rotas de usuário
 router = APIRouter(
     prefix="/users",
@@ -25,7 +27,11 @@ def get_all_users(db: Session = Depends(get_db)):
 
 # rota para obter um usuário por ID (exemplo adicional)
 @router.get("/{user_id}", response_model=UserResponse)
-def get_user_by_id(user_id: int, db: Session = Depends(get_db)):
+def get_user_by_id(
+    user_id: int, 
+    db: Session = Depends(get_db), 
+    current_user=Depends(get_current_user)
+):
     return UserService.get_user_by_id(db, user_id)
 
 # rota para atualizar um usuário por ID (exemplo adicional)
