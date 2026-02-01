@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from app.core.database import engine, Base
 from app.routes.user_router import router as user_router
 from app.routes.auth_router import router as auth_router
+from app.routes.client_router import router as client_router
 
 
 # importando os modelos para garantir que as tabelas sejam criadas
@@ -16,6 +17,7 @@ Base.metadata.create_all(bind=engine)
 # incluindo as rotas na aplicação
 app.include_router(auth_router)
 app.include_router(user_router)
+app.include_router(client_router)
 
 
 # Rota raiz para verificar se a API está rodando corretamente
