@@ -25,6 +25,8 @@ class AuthService:
     @staticmethod
     def login(db: Session, email:str, password: str):
 
+        
+
         # Usando o proprio metodo de autenticação de usuario para validar o usuario
         user = AuthService.authenticate_user(db, email, password)
 

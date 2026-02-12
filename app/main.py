@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from app.core.database import engine, Base
 from app.routes.user_router import router as user_router
 from app.routes.auth_router import router as auth_router
@@ -8,8 +9,24 @@ from app.routes.client_router import router as client_router
 # importando os modelos para garantir que as tabelas sejam criadas
 from app.models import user
 
+
 # Criando a aplicação com o fastapi 
 app = FastAPI(title="Diag Manager API", version="1.0.0")
+
+# Criando o cors
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+    
+)
 
 # criando as tabelas do banco de dados ao iniciar a aplicação
 Base.metadata.create_all(bind=engine)

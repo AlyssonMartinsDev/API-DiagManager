@@ -12,4 +12,6 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 @router.post("/login")
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+
+    print(form_data)
     return AuthService.login(db, form_data.username, form_data.password)
