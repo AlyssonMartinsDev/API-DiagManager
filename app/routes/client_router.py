@@ -17,7 +17,7 @@ def get_all_clients(depends_db: Session = Depends(get_db)):
 @router.post("/", status_code=201)
 def create_client(client_data: ClientCreate, depends_db: Session = Depends(get_db)):
 
-      return ClientService.create(db=depends_db, client_data=client_data)
+    return ClientService.create(db=depends_db, client_data=client_data)
     
 
     
