@@ -2,7 +2,9 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException
 
 from app.models.client import Clients
-from app.schemas.client_schema import ClientCreate
+from app.schemas.client_schema import ClientCreate, ClientResponse
+
+from app.core.response import success
 
 
 class ClientService:
@@ -31,7 +33,7 @@ class ClientService:
         
 
         
-              
+
         new_client = Clients(
             first_name=client_data.first_name,
             last_name=client_data.last_name,
@@ -50,7 +52,18 @@ class ClientService:
 
     @staticmethod
     def get_all(db: Session):
-        return db.query(Clients).all()
+
+        clients = db.query(Clients).all()
+
+        clients_response = [
+            ClientResponse.model_validate(c).model_dump()
+            for c in clients
+        ]
+        return success(
+            message="Clientes obtidos com sucesso",
+            code=200,
+            data=clients_response
+        )
 
 
 

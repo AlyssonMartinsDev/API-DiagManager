@@ -1,9 +1,15 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.database import engine, Base
 from app.routes.user_router import router as user_router
 from app.routes.auth_router import router as auth_router
 from app.routes.client_router import router as client_router
+
+from fastapi.exceptions import RequestValidationError
+from app.core.exception_handlers import (
+    validation_exception_handler,
+    http_exception_handler,
+)
 
 
 # importando os modelos para garantir que as tabelas sejam criadas
@@ -12,6 +18,10 @@ from app.models import user
 
 # Criando a aplicação com o fastapi 
 app = FastAPI(title="Diag Manager API", version="1.0.0")
+
+# adicionando o interceptador de erros para os erros do pydantic e padronizar a resposta
+app.add_exception_handler(RequestValidationError, validation_exception_handler)
+app.add_exception_handler(HTTPException,http_exception_handler)
 
 # Criando o cors
 origins = [
